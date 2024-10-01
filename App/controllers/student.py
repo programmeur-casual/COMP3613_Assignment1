@@ -2,9 +2,11 @@ from App.models import Student
 from App.database import db
 
 def create_student(username, password):
+
     student = Student(username=username, password=password)
     db.session.add(student)
     db.session.commit()
+    
     return student
 
 def get_student(id):
@@ -23,3 +25,11 @@ def update_student(id, username):
         db.session.add(student)
         return db.session.commit()
     return None
+
+def new_participation(student_id, participant_id)
+
+    participation = Participation(student_id=student_id, participant_id=participant_id)
+    db.session.add(student)
+    db.session.commit()
+
+    return participation

@@ -57,6 +57,32 @@ def get_student(username):
     else:
         print(f'ERROR: Student {username} not found')
 
+
+@app.cli.command('add-student-participation')
+@click.argument('username')
+@click.argument('title')
+@click.argument('participant_id')
+def add_student_participation(username, title, participant_id):
+
+    student = get_student_by_username(username)
+    competition = get_competition_by_title(title)
+
+    if student and competition:
+
+        competition_id = competition.id
+        participant = Participant.query.filter_by(participant_id=participant_id, competition_id=competition_id).first()
+
+        if participant:
+            
+            participation = new_participation()
+
+        else:
+            print(f'Error: Participant id not found in {title} data file')
+
+        return
+    else:
+        print('Error: Username or competition does not exist')
+
 '''
 ------------------------------- Competition Commands -------------------------------
 '''

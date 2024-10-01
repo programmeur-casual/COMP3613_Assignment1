@@ -4,7 +4,7 @@ class Participant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     participant_id = db.Column(db.Integer, nullable=False, unique=True)
     competition_id = db.Column(db.Integer, db.ForeignKey('competition.id'), nullable=False)
-    rank =  db.Column(db.String(1), nullable=False, unique=True)
+    rank =  db.Column(db.String(1), nullable=False)
     score = db.Column(db.Integer, nullable=False)
 
     def __init__(self, participant_id, rank, score):
