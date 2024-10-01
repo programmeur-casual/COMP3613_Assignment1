@@ -116,7 +116,7 @@ def get_competition_data(title):
 
     if(competition):
 
-        print(f'Competition {title} Data:')
+        print(f'Competition {title} File Data:')
         data = competition.get_participants()
 
         for record in data:
