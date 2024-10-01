@@ -1,4 +1,4 @@
-from App.models import Student
+from App.models import Student, Participation
 from App.database import db
 
 def create_student(username, password):
@@ -6,7 +6,7 @@ def create_student(username, password):
     student = Student(username=username, password=password)
     db.session.add(student)
     db.session.commit()
-    
+
     return student
 
 def get_student(id):
@@ -26,10 +26,19 @@ def update_student(id, username):
         return db.session.commit()
     return None
 
-def new_participation(student_id, participant_id)
+def create_participation(student_id, participant_id):
+
+    student = get_student(student_id)
 
     participation = Participation(student_id=student_id, participant_id=participant_id)
-    db.session.add(student)
+    student.participations.append(participation)
+
     db.session.commit()
 
     return participation
+
+def get_participations(username):
+
+    student = get_student_by_username(username)
+
+    return student.get_participations()

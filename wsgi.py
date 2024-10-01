@@ -58,11 +58,11 @@ def get_student(username):
         print(f'ERROR: Student {username} not found')
 
 
-@app.cli.command('add-student-participation')
+@app.cli.command('add-participation')
 @click.argument('username')
 @click.argument('title')
 @click.argument('participant_id')
-def add_student_participation(username, title, participant_id):
+def add_participation(username, title, participant_id):
 
     student = get_student_by_username(username)
     competition = get_competition_by_title(title)
@@ -74,7 +74,7 @@ def add_student_participation(username, title, participant_id):
 
         if participant:
             
-            participation = new_participation()
+            participation = create_participation(student.id, participant_id)
 
         else:
             print(f'Error: Participant id not found in {title} data file')
@@ -82,6 +82,29 @@ def add_student_participation(username, title, participant_id):
         return
     else:
         print('Error: Username or competition does not exist')
+
+@app.cli.command('get-participations')
+@click.argument('username')
+def get_student(username):
+    
+    student = get_student_by_username(username)
+    if(student):
+
+        participations = student.get_participations()
+
+        for p in participations:
+
+            participant_id = p.participant_id
+            participant = Participant.query.filter_by(participant_id=participant_id).first()
+
+            id = participant.competition_id
+            competition = Competition.query.filter_by(id=id).first()
+
+            print(f'<Participation {p.id} - {competition.title} - Rank: {participant.rank} - Score: {participant.score}>')
+
+
+    else:
+        print(f'ERROR: Student {username} not found')
 
 '''
 ------------------------------- Competition Commands -------------------------------
