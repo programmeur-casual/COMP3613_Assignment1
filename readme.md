@@ -67,23 +67,53 @@ You just need create a manager command function, for example:
 ```python
 # inside wsgi.py
 
-user_cli = AppGroup('user', help='User object commands')
+'''
+Student Commands -------------------------------------------------
 
-@user_cli.cli.command("create-user")
-@click.argument("username")
-@click.argument("password")
-def create_user_command(username, password):
-    create_user(username, password)
-    print(f'{username} created!')
+flask add-student [username] [password]
 
-app.cli.add_command(user_cli) # add the group to the cli
+    Description: Adds a student
+    Example: flask add-student John johnpass 
 
-```
+flask get-students
 
-Then execute the command invoking with flask cli with command name and the relevant parameters
+    Description: Gets all students
+    Example: flask get-students
 
-```bash
-$ flask user create bob bobpass
+flask add-participation [student.username] [competition.title] [participation.id]
+
+    Description: Adds a competition participation for a student based on a given participation id
+    Example: flask add-participation John Codathon 44024
+
+flask get-participations
+
+    Description: Gets the competition participations of a student
+    Example: flask get-participations John
+
+Competition Commands ------------------------------------------------
+
+flask add-competition [title] [file_name]
+
+    Description: Adds a competition (must include file extension in file name)
+    Example: flask add-competition Codathon codeathon.csv
+
+flask import-competition-data [title]
+
+    Description: Imports the file data for a specified competition (file must exist in repo)
+    Example: flask import-competition-data Codathon
+
+flask get-competition-data [title]
+
+    Description: Displays competition data
+    Example: flask get-competition-data Codathon
+
+flask get-competitions [title] [file_name]
+
+    Description: Gets all competitions
+    Example: flask get-competitions
+
+'''
+
 ```
 
 
